@@ -1,0 +1,35 @@
+﻿@page
+@model MovieAppCsharp.Pages.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr/>
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <form method="post">
+            <div class="mb-3">
+                <label for="Username" class="form-label">Username</label>
+                <input asp-for="Username" name="Username" type="text" class="form-control" id="Username">
+                <span asp-validation-for="@Model.Username" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <input name="Password" type="password" min="1" max="10" class="form-control" id="Password">
+                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+                @if (!string.IsNullOrEmpty(@Model.ErrorMessage))
+                {
+                    <span class="text-danger">
+                        @Model.ErrorMessage
+                    </span>
+                }
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+            <a class="btn btn-warning" href="Register">Register</a>
+        </form>
+    </div>
+</div>
