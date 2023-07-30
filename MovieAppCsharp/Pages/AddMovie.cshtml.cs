@@ -26,7 +26,11 @@ namespace MoviesApp.Pages
         public IActionResult OnPost()
         {
             string value = $"{Movie.Title}-{Movie.Rate}-{Movie.Description}";
-            return Redirect(value);
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            return Redirect("Movies");
         }
     }
 }
