@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieAppCsharp.Data;
 using MovieAppCsharp.Data.Models;
+using MovieAppCsharp.Services;
 
 namespace MoviesApp.Pages
 {
@@ -14,12 +15,13 @@ namespace MoviesApp.Pages
         [BindProperty] public string Description { get; set; }
 
 
-        private ApplicationDbContext _context;
+        private IMoviesService _moviesService;
 
-        public AddMovieModel(ApplicationDbContext context)
+        public AddMovieModel(IMoviesService moviesService)
         {
-            _context = context;
+            _moviesService = moviesService;
         }
+
 
         public void OnGet()
         {
@@ -38,9 +40,9 @@ namespace MoviesApp.Pages
                 Rate = Rate,
                 Description = Description
             };
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
-            
+
+            _moviesService.Add(movie);
+
             return Redirect("Movies");
         }
     }
