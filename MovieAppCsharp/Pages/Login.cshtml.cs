@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieAppCsharp.Data.Models;
 using MovieAppCsharp.Services;
@@ -27,7 +31,7 @@ public class LoginModel : PageModel
         }
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         // Check if model is valid
         if (!ModelState.IsValid)
@@ -49,6 +53,20 @@ public class LoginModel : PageModel
             ErrorMessage = "Password is incorrect!";
             return Page();
         }
+
+        // Create the ClaimsIdentity based on the claims
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, Username),
+            new Claim(ClaimTypes.Role, user.Role)
+        };
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        
+        // Create the ClaimsPrincipal
+        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        
+        // Sign in the user
+        await HttpContext.SignInAsync(claimsPrincipal);
 
         // Redirect to another page if successful
         return RedirectToPage("Index");

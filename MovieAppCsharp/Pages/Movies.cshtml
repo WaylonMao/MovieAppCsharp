@@ -1,5 +1,5 @@
 ﻿@page
-@model MoviesApp.Pages.MoviesModel
+@model MoviesModel
 @{
     ViewData["Title"] = "List of all movies";
 }
@@ -9,12 +9,12 @@
 
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Rate</th>
-            <th scope="col">Actions</th>
-        </tr>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Actions</th>
+    </tr>
     </thead>
     <tbody>
     @foreach (var _movie in Model.Movies)
@@ -28,7 +28,8 @@
     }
     </tbody>
 </table>
-
+<p>Is in 'User' role: @User.IsInRole("User")</p>
+<p>Is in 'Admin' role: @User.IsInRole("Admin")</p>
 <div style="position: fixed; bottom: 70px;right:25px;">
     <a href="/AddMovie" class="btn btn-success">Add new</a>
 </div>

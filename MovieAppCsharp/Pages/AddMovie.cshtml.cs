@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieAppCsharp.Data;
 using MovieAppCsharp.Data.Models;
 using MovieAppCsharp.Services;
 
-namespace MoviesApp.Pages
+namespace MovieAppCsharp.Pages
 {
-    [Authorize(Roles = "Admin")]
+    
     public class AddMovieModel : PageModel
     {
         [BindProperty] public string Title { get; set; }
@@ -28,7 +27,7 @@ namespace MoviesApp.Pages
         public void OnGet()
         {
         }
-
+        
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

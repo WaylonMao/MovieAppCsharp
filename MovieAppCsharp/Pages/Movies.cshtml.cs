@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieAppCsharp.Data;
 using MovieAppCsharp.Data.Models;
 using MovieAppCsharp.Services;
 
-namespace MoviesApp.Pages
+namespace MovieAppCsharp.Pages
 {
     public class MoviesModel : PageModel
     {
